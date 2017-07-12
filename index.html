@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+</head>
+<body>
+	<form action="#">
+		<div class="row">
+			<div class="col s8">
+				<div class="file-field input-field">
+					<div class="btn">
+						<span>File</span>
+						<input type="file">
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path validate" type="text">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<!-- <form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+	    <input type="file" name="file"/>
+	    <input type="submit"/>
+	</form>
+
+	If upload successfully, display images and related information
+	<p>File Name : {{ filename }}</p>
+	<p>File Blob Key : {{ filekey }}</p>
+	{% if filekey != None %}
+	    <!-- Use Blobstore key to get file -->
+	    <!-- <img width="160" height="90" src="/servefile/{{ filekey }}" />
+	{% endif %} -->
+</body> -->
+</html>
