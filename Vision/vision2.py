@@ -4,7 +4,7 @@ import os
 # Imports the Google Cloud client library
 from google.cloud import vision
 
-path = "Resources/arianna.jpg"
+path = "Resources/bado.jpg"
 
 def detect_web(path):
   """Detects web annotations given an image."""
@@ -45,8 +45,8 @@ def detect_web(path):
     print ('\n{} Web entities found: '.format(len(notes.web_entities)))
 
     for entity in notes.web_entities:
-        print('Score      : {}'.format(entity.score))
-        print('Description: {}'.format(entity.description))
+      print('Score      : {}'.format(entity.score))
+      print('Description: {}'.format(entity.description))
 
 
 detect_web(path)

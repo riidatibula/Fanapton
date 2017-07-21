@@ -8,7 +8,7 @@ from google.cloud import vision
 vision_client = vision.Client()
 
 # The name of the image file to annotate
-file_name = "Resources/arianna.jpg"
+file_name = "Resources/bado.jpg"
 
 # Loads the image into memory
 with io.open(file_name, 'rb') as image_file:
@@ -22,5 +22,17 @@ labels = image.detect_labels()
 print('Labels:')
 for label in labels:
     print(label.description)
+
+# Property detection
+props = image.detect_properties()
+
+print('Properties:')
+for color in props.colors:
+  print('fraction: {}'.format(color.pixel_fraction))
+  print('\tr: {}'.format(color.color.red))
+  print('\tg: {}'.format(color.color.green))
+  print('\tb: {}'.format(color.color.blue))
+  print('\ta: {}'.format(color.color.alpha))
+
 
 # Read more in the Python API Reference Documentation for 
