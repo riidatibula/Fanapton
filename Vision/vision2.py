@@ -4,7 +4,7 @@ import os
 # Imports the Google Cloud client library
 from google.cloud import vision
 
-path = "Resources/bado.jpg"
+path = "Resources/rom.jpg"
 
 def detect_web(path):
   """Detects web annotations given an image."""
