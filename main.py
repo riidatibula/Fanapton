@@ -1,14 +1,19 @@
 #WEB
+import sys
+
 import 	webapp2
 import 	json
 
 from 	google.appengine.ext 		import 	blobstore
 from 	google.appengine.ext.webapp import 	blobstore_handlers
 from 	google.appengine.ext 		import 	ndb
-import 	google.appengine.api.images
 
 import 	jinja2
 import 	os
+
+import 	google.appengine.api.images
+import firebase_admin
+
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader('templates'),
@@ -64,6 +69,37 @@ class jsonReturn(webapp2.RequestHandler):
 		} 
 		self.response.out.write(json.dumps(reply))
 
+
+
+#FIREBASE
+from firebase_admin import credentials
+from firebase_admin import db
+
+# Fetch the service account key JSON file contents
+cred = credentials.Certificate('./keys/fanapton-firebase-adminsdk-73ws9-db42f04ba6.json')
+
+# Initialize the app with a service account, granting admin privileges
+app = firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://fanapton.firebaseio.com'
+})
+
+# As an admin, the app has access to read and write all data, regradless of Security Rules
+main_ref = db.reference('restricted_access/secret_document')
+main_db = 'path/'
+
+
+def push_data(document, data):
+	db_ref = main_ref.child(document)
+	db_ref.push(data)
+
+def update_data(document, query, data):
+	db_ref = main_ref.child(document)
+	db_ref.child(query).update(data)
+
+def get_data(document, query):
+	ref_str = main_db + document
+	ref = db.reference(ref_str)
+	return ref.get()
 
 
 app = webapp2.WSGIApplication([
