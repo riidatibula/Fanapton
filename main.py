@@ -21,42 +21,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     autoescape=True)
 
 
-#INITIALIZE FIREBASE
-#FIREBASE
-from firebase_admin import credentials
-from firebase_admin import db
-
-# Fetch the service account key JSON file contents
-cred = credentials.Certificate('./keys/fanapton-firebase-adminsdk-73ws9-db42f04ba6.json')
-
-# Initialize the app with a service account, granting admin privileges
-app = firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://fanapton.firebaseio.com'
-})
-
-# As an admin, the app has access to read and write all data, regradless of Security Rules
-# main_ref = db.reference('restricted_access/secret_document')
-# main_db = 'path/'
-
-def push_data(document, data):
-	db_ref = main_ref.child(document)
-	db_ref.push(data)
-
-def update_data(document, query, data):
-	db_ref = main_ref.child(document)
-	db_ref.child(query).update(data)
-
-def get_data(document, query):
-	ref_str = main_db + document
-	ref = db.reference(ref_str)
-	return ref.get()
-
-
 # GCLOUD STORAGE
 from google.cloud import storage
 import cloudstorage as gcs
 # Reference an existing bucket.
 BUCKET_NAME = 'fanapton.appspot.com'
+
+class Home(webapp2.RequestHandler):
+	def get(self):
+		template = JINJA_ENVIRONMENT.get_template('home.html')
+		self.response.write(template.render())
+
 
 class Images(ndb.Model):
     image_key = ndb.BlobKeyProperty()
@@ -120,6 +95,37 @@ class jsonReturn(webapp2.RequestHandler):
 		} 
 		self.response.out.write(json.dumps(reply))
 
+
+#FIREBASE
+#import firebase_admin
+# from firebase_admin import credentials
+# from firebase_admin import db
+
+# # Fetch the service account key JSON file contents
+# cred = credentials.Certificate('./keys/fanapton-firebase-adminsdk-73ws9-db42f04ba6.json')
+
+# Initialize the app with a service account, granting admin privileges
+# app = firebase_admin.initialize_app(cred, {
+#     'databaseURL': 'https://fanapton.firebaseio.com'
+# })
+
+# As an admin, the app has access to read and write all data, regradless of Security Rules
+# main_ref = db.reference('restricted_access/secret_document')
+# main_db = 'path/'
+
+
+# def push_data(document, data):
+# 	db_ref = main_ref.child(document)
+# 	db_ref.push(data)
+
+# def update_data(document, query, data):
+# 	db_ref = main_ref.child(document)
+# 	db_ref.child(query).update(data)
+
+# def get_data(document, query):
+# 	ref_str = main_db + document
+# 	ref = db.reference(ref_str)
+# 	return ref.get()
 
 app = webapp2.WSGIApplication([
 
