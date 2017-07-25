@@ -5,6 +5,9 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /Authentication      #app engine does not recognize your actual local directory
+  static_dir: Authentication
+
 - url: /.*
   script: main.app
 
