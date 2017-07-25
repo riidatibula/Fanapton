@@ -34,6 +34,18 @@ class Home(webapp2.RequestHandler):
 		self.response.write(template.render())
 
 
+class Profile(webapp2.RequestHandler):
+	def get(self):
+		template = JINJA_ENVIRONMENT.get_template('profile.html')
+		self.response.write(template.render())
+
+
+class AnotherPage(webapp2.RequestHandler):
+	def get(self):
+		template = JINJA_ENVIRONMENT.get_template('anotherPage.html')
+		self.response.write(template.render())
+
+
 class Images(ndb.Model):
 
    image_key = ndb.BlobKeyProperty()
@@ -113,5 +125,6 @@ app = webapp2.WSGIApplication([
 	('/', Home),
 	('/upload', PhotoUploadHandler),
 	('/view_photo/([^/]+)?', ViewPhotoHandler),
-	('/respond', jsonReturn)
+	('/respond', jsonReturn),
+	('/profile$', Profile)
 ], debug=True)
