@@ -6,19 +6,18 @@ import 	webapp2
 import 	json
 import 	jinja2
 
-from 	google.appengine.ext 		import 	blobstore
-from 	google.appengine.ext.webapp import 	blobstore_handlers
-from 	google.appengine.ext 		import 	ndb
+from google.appengine.ext import blobstore
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.ext import ndb
 
 import google.appengine.api.images
 import firebase_admin
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader('templates'),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
-
+  loader=jinja2.FileSystemLoader('templates'),
+  extensions=['jinja2.ext.autoescape'],
+  autoescape=True)
 
 # GCLOUD STORAGE
 # from google.cloud import storage
@@ -27,13 +26,15 @@ import cloudstorage as gcs
 BUCKET_NAME = 'fanapton.appspot.com'
 
 class Home(webapp2.RequestHandler):
+
 	def get(self):
 		template = JINJA_ENVIRONMENT.get_template('home.html')
 		self.response.write(template.render())
 
 
 class Images(ndb.Model):
-    image_key = ndb.BlobKeyProperty()
+
+   image_key = ndb.BlobKeyProperty()
 
 
 class MainPage(webapp2.RequestHandler):
@@ -139,9 +140,9 @@ class jsonReturn(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 
-	('/', MainPage),
+	('/', Home),
+	('/testupload', MainPage),
 	('/upload', PhotoUploadHandler),
 	('/view_photo/([^/]+)?', ViewPhotoHandler),
 	('/respond', jsonReturn)
-
 ], debug=True)
