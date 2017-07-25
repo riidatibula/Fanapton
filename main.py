@@ -1,18 +1,17 @@
 #WEB
 import sys
+import 	os
 
-import webapp2
-import json
+import 	webapp2
+import 	json
+import 	jinja2
 
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext import ndb
 
-import jinja2
-import os
-
 import google.appengine.api.images
-# import firebase_admin
+import firebase_admin
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -20,12 +19,11 @@ JINJA_ENVIRONMENT = jinja2.Environment(
   extensions=['jinja2.ext.autoescape'],
   autoescape=True)
 
-#INITIALIZE FIREBASE
-# import firebase_admin
-# from firebase_admin import credentials
-
-# cred = credentials.Certificate("path/to/serviceAccountKey.json")
-# firebase_admin.initialize_app(cred)
+# GCLOUD STORAGE
+# from google.cloud import storage
+import cloudstorage as gcs
+# Reference an existing bucket.
+BUCKET_NAME = 'fanapton.appspot.com'
 
 class Home(webapp2.RequestHandler):
 
@@ -54,28 +52,60 @@ class Images(ndb.Model):
 class MainPage(webapp2.RequestHandler):
 
 	def get(self):
-		upload_url = blobstore.create_upload_url('/upload')
+		# upload_url = blobstore.create_upload_url('/upload')
 		template = JINJA_ENVIRONMENT.get_template('test.html')
-		self.response.write(template.render().format(upload_url))
+		self.response.write(template.render())
 
 
-class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+# class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+
+# 	def post(self):
+# 		upload = self.get_uploads('file')[0]
+# 		instance = Images(image_key=upload.key())
+# 		instance.put()
+# 		# self.redirect('/view_photo/%s' % upload.key())
+# 		self.redirect('/respond')
+
+class PhotoUploadHandler(webapp2.RequestHandler):
 
 	def post(self):
-		upload = self.get_uploads('file')[0]
-		instance = Images(image_key=upload.key())
-		instance.put()
-		# self.redirect('/view_photo/%s' % upload.key())
-		self.redirect('/respond')
-		
+		print "TO UPLOAD"
+		uploaded_file = self.request.POST.get("file")
+		uploaded_file_content = uploaded_file.file.read()
+		uploaded_file_filename = uploaded_file.filename
+		uploaded_file_type = uploaded_file.type
 
-class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
+		write_retry_params = gcs.RetryParams(backoff_factor=1.1)
+		gcs_file = gcs.open(
+        "/" + BUCKET_NAME + "/" + uploaded_file_filename,
+        "w",
+        content_type=uploaded_file_type,
+        retry_params=write_retry_params
+	    )
+		gcs_file.write(uploaded_file_content)
+		gcs_file.close()
+		param = '' + BUCKET_NAME + '/' + uploaded_file_filename
+		self.redirect('/view_photo/%s' % param)
 
-  def get(self, photo_key):
-    if not blobstore.get(photo_key):
-        self.error(404)
-    else:
-        self.send_blob(photo_key)
+
+# class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
+
+#     def get(self, photo_key):
+# 			print "VIEW NA BES"
+# 			if not blobstore.get(photo_key):
+# 				self.error(404)
+# 			else:
+# 				self.send_blob(photo_key)
+
+class ViewPhotoHandler(webapp2.RequestHandler):
+
+	def get(self, filename):
+		# with gcs.open(filename) as cloudstorage_file:
+		# 	self.response.write(cloudstorage_file.readline())
+		# 	cloudstorage_file.seek(-1024, os.SEEK_END)
+		# 	self.response.write(cloudstorage_file.read())
+		cloudstorage_file = gcs.open(filename)
+		self.response.write(cloudstorage_file)
 
 
 class jsonReturn(webapp2.RequestHandler):
@@ -89,8 +119,8 @@ class jsonReturn(webapp2.RequestHandler):
 		self.response.out.write(json.dumps(reply))
 
 
-
 #FIREBASE
+#import firebase_admin
 # from firebase_admin import credentials
 # from firebase_admin import db
 
@@ -120,9 +150,10 @@ class jsonReturn(webapp2.RequestHandler):
 # 	ref = db.reference(ref_str)
 # 	return ref.get()
 
-
 app = webapp2.WSGIApplication([
+
 	('/', Home),
+	('/testupload', MainPage),
 	('/upload', PhotoUploadHandler),
 	('/view_photo/([^/]+)?', ViewPhotoHandler),
 	('/respond', jsonReturn),
