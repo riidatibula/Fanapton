@@ -74,6 +74,7 @@ class PhotoUploadHandler(webapp2.RequestHandler):
 		gcs_file.close()
 		param = '' + BUCKET_NAME + '/' + uploaded_file_filename
 		self.redirect('/view_photo/%s' % param)
+		# self.redirect('/respond')
 
 
 # class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
