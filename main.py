@@ -1,15 +1,14 @@
 #WEB
 import sys
+import 	os
 
 import 	webapp2
 import 	json
+import 	jinja2
 
 from 	google.appengine.ext 		import 	blobstore
 from 	google.appengine.ext.webapp import 	blobstore_handlers
 from 	google.appengine.ext 		import 	ndb
-
-import 	jinja2
-import 	os
 
 import google.appengine.api.images
 import firebase_admin
@@ -22,7 +21,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 # GCLOUD STORAGE
-from google.cloud import storage
+# from google.cloud import storage
 import cloudstorage as gcs
 # Reference an existing bucket.
 BUCKET_NAME = 'fanapton.appspot.com'
@@ -72,17 +71,28 @@ class PhotoUploadHandler(webapp2.RequestHandler):
 	    )
 		gcs_file.write(uploaded_file_content)
 		gcs_file.close()
-		self.redirect('/respond')
+		param = '' + BUCKET_NAME + '/' + uploaded_file_filename
+		self.redirect('/view_photo/%s' % param)
 
 
-class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
+# class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
-    def get(self, photo_key):
-			print "VIEW NA BES"
-			if not blobstore.get(photo_key):
-				self.error(404)
-			else:
-				self.send_blob(photo_key)
+#     def get(self, photo_key):
+# 			print "VIEW NA BES"
+# 			if not blobstore.get(photo_key):
+# 				self.error(404)
+# 			else:
+# 				self.send_blob(photo_key)
+
+class ViewPhotoHandler(webapp2.RequestHandler):
+
+	def get(self, filename):
+		# with gcs.open(filename) as cloudstorage_file:
+		# 	self.response.write(cloudstorage_file.readline())
+		# 	cloudstorage_file.seek(-1024, os.SEEK_END)
+		# 	self.response.write(cloudstorage_file.read())
+		cloudstorage_file = gcs.open(filename)
+		self.response.write(cloudstorage_file)
 
 
 class jsonReturn(webapp2.RequestHandler):
