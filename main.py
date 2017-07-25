@@ -1,25 +1,24 @@
 #WEB
 import sys
 
-import 	webapp2
-import 	json
+import webapp2
+import json
 
-from 	google.appengine.ext 		import 	blobstore
-from 	google.appengine.ext.webapp import 	blobstore_handlers
-from 	google.appengine.ext 		import 	ndb
+from google.appengine.ext import blobstore
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.ext import ndb
 
-import 	jinja2
-import 	os
+import jinja2
+import os
 
-import 	google.appengine.api.images
+import google.appengine.api.images
 # import firebase_admin
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader('templates'),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
-
+  loader=jinja2.FileSystemLoader('templates'),
+  extensions=['jinja2.ext.autoescape'],
+  autoescape=True)
 
 #INITIALIZE FIREBASE
 # import firebase_admin
@@ -29,13 +28,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 # firebase_admin.initialize_app(cred)
 
 class Home(webapp2.RequestHandler):
+
 	def get(self):
 		template = JINJA_ENVIRONMENT.get_template('home.html')
 		self.response.write(template.render())
 
 
 class Images(ndb.Model):
-    image_key = ndb.BlobKeyProperty()
+
+   image_key = ndb.BlobKeyProperty()
 
 
 class MainPage(webapp2.RequestHandler):
@@ -58,11 +59,11 @@ class PhotoUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
-    def get(self, photo_key):
-        if not blobstore.get(photo_key):
-            self.error(404)
-        else:
-            self.send_blob(photo_key)
+  def get(self, photo_key):
+    if not blobstore.get(photo_key):
+        self.error(404)
+    else:
+        self.send_blob(photo_key)
 
 
 class jsonReturn(webapp2.RequestHandler):
@@ -109,10 +110,8 @@ class jsonReturn(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-
 	('/', Home),
 	('/upload', PhotoUploadHandler),
 	('/view_photo/([^/]+)?', ViewPhotoHandler),
 	('/respond', jsonReturn)
-
 ], debug=True)
