@@ -21,7 +21,7 @@
   const btnGoogleSignin = document.getElementById('btnGoogleSignin');
   const btnFBSignin = document.getElementById('btnFBSignin');
 
-  //Add login event
+  // Add login event
   // function loginUser(){
   //   //get email and password
   //   const email = txtEmail.value;
@@ -96,12 +96,21 @@
   firebase.auth().onAuthStateChanged(firebaseUser => {
     if(firebaseUser) {
       console.log(firebaseUser);
-      btnLogout.removeAttribute('hidden');
+      btnLogout.removeAttribute('hidden')
+
+      //get id token of the signed user
+      firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+        // Send token to your backend via HTTPS
+        // ...
+          console.log(idToken);
+        }).catch(function(error) {
+          // Handle error
+      });
     }
     else {
       console.log('not log in');
     }
-  });
+  }); 
 
 }());
 

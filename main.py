@@ -37,7 +37,7 @@ class Profile(webapp2.RequestHandler):
 
 	def post(self):
 		context = {
-			'shit': "lols"
+			'shit': "fck"
 		}
 
 		if users.get_current_user():
