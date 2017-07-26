@@ -1,14 +1,15 @@
 #WEB
 import sys
-import 	os
+import os
 
-import 	webapp2
-import 	json
-import 	jinja2
+import webapp2
+import json
+import jinja2
 
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext import ndb
+from google.appengine.api import users
 
 import google.appengine.api.images
 import firebase_admin
@@ -33,9 +34,28 @@ class Home(webapp2.RequestHandler):
 
 
 class Profile(webapp2.RequestHandler):
-	def get(self):
+
+	def post(self):
+		context = {
+			'shit': "lols"
+		}
+
+		if users.get_current_user():
+			user = users.get_current_user()
+			print user
+			context = {
+				'shit': "With user",
+				'lels': users.get_current_user().email()
+			}
+			print "there is a user"
+		else:
+			context = {
+				'shit': "No user"
+			}
+			print 'there is no user'
+
 		template = JINJA_ENVIRONMENT.get_template('profile.html')
-		self.response.write(template.render())
+		self.response.write(template.render(context))
 
 
 class AnotherPage(webapp2.RequestHandler):

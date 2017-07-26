@@ -22,6 +22,18 @@
   const btnFBSignin = document.getElementById('btnFBSignin');
 
   //Add login event
+  // function loginUser(){
+  //   //get email and password
+  //   const email = txtEmail.value;
+  //   const pass = txtPassword.value;
+  //   const auth = firebase.auth();
+  //   //sign in
+  //   const promise = auth.signInWithEmailAndPassword(email, pass);
+  //   promise.catch(e => console.log(e.message));
+
+  //   document.theForm.submit();
+  // }
+
   btnLogin.addEventListener('click', e => {
     //get email and password
     const email = txtEmail.value;
