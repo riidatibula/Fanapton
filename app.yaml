@@ -6,9 +6,8 @@ handlers:
 - url: /Authentication      #app engine does not recognize your actual local directory
   static_dir: Authentication
 
-- url: /Mobile
-  static_dir: Mobile
-  script: main.app
+- url: /Mobile/.*
+  script: Mobile.main.app
 
 - url: /.*
   script: fanapton.app
