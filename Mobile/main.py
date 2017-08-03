@@ -172,7 +172,6 @@ class jsonReturn(webapp2.RequestHandler):
 # 	return ref.get()
 
 app = webapp2.WSGIApplication([
-
 	('/', Home),
 	('/testupload', MainPage),
 	('/upload', PhotoUploadHandler),
