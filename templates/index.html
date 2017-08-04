@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fanapton</title>
+</head>
+<body>
+	{% if user %}
+		<h3>Welcome {{ user.nickname() }}</h3>
+	{% endif %}
+
+	<a href="{{ url }}">{{ url_linktext }}</a>
+</body>
+</html>
