@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
-
 {% block title %}{% endblock %}
 
-{% if user %}
-	{% block user %}admin{% endblock %}
-{% endif %}
+{% block user %}
+	{% if user %}
+		{{ user.nickname() }}
+	{% else %}
+		no user
+	{% endif %}
+{% endblock %}
 
 {% block url %}{{ url }}{% endblock %}
 
