@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{% endblock %}
+
+{% if user %}
+	{% block user %}admin{% endblock %}
+{% endif %}
+
+{% block url %}{{ url }}{% endblock %}
+
+{% block url_linktext %}{{ url_linktext }}{% endblock %}
+
+{% block body %}
+{% endblock %}

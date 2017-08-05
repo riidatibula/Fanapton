@@ -6,6 +6,9 @@ handlers:
 - url: /Authentication      #app engine does not recognize your actual local directory
   static_dir: Authentication
 
+- url: /Static
+  static_dir: Static
+
 - url: /Mobile/.*
   script: Mobile.main.app
 
