@@ -12,6 +12,23 @@
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}
+	{% for shop in shops %}
+		<p>Shop Name: {{ shop.name }}</p>
+		<p>Shop Owner: {{ shop.owner }}</p>
+		<p>Shop ID: {{ shop.key.id() }}</p>
+		<p>Contacts:
+			{% for contact in shop.contacts %}
+				{{ contact }}
+			{% endfor %}
+		</p>
+		<p>Address: 
+			{% for address in shop.address %}
+				{{ address }}
+			{% endfor %}
+		</p>
+		<br>
+	{% endfor %}
+
 	{% if user %}
 		<a href="/addShop" class="btn btn-primary btn-sm">Add Shop</a>
 	{% endif %}
