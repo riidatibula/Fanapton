@@ -12,6 +12,11 @@ handlers:
 - url: /Mobile/.*
   script: Mobile.main.app
 
+- url: /addShop
+  script: fanapton.app
+  login: required
+  auth_fail_action: redirect
+
 - url: /.*
   script: fanapton.app
 

@@ -36,6 +36,29 @@ class MainPage(webapp2.RequestHandler):
     self.response.write(template.render(context))
 
 
+class AddShop(webapp2.RequestHandler):
+  def get(self):
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url(self.request.uri)
+      url_linktext = 'logout'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'login'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('addShop.html')
+    self.response.write(template.render(context))
+
+
 app = webapp2.WSGIApplication([
 	('/', MainPage),
+  ('/addShop', AddShop),
 ], debug=True)

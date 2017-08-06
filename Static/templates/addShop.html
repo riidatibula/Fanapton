@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Fanapton{% endblock %}
+{% block title %}Fanapton Add Shop{% endblock %}
 
 {% block user %}
 	{% if user %}{{ user.nickname() }}
@@ -12,7 +12,10 @@
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}
-	{% if user %}
-		<a href="/addShop" class="btn btn-primary btn-sm">Add Shop</a>
-	{% endif %}
+
+	<form method=POST>
+		<input type="text" name="owner" placeholder="owner">
+		<button type="submit" class="btn btn-success">Add</button>
+	</form>
+
 {% endblock %}
