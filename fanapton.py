@@ -9,7 +9,7 @@ from models import Shop
 from google.appengine.api import users
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-  loader=jinja2.FileSystemLoader('static/templates'),
+  loader=jinja2.FileSystemLoader('templates'),
   extensions=['jinja2.ext.autoescape'],
   autoescape=True)
 
