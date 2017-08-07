@@ -72,8 +72,14 @@ class AddShop(webapp2.RequestHandler):
 
     self.redirect('/')
 
+class DeleteShop(webapp2.RequestHandler):
+  def post(self):
+    template = JINJA_ENVIRONMENT.get_template('addShop.html')
+    self.response.write(template.render(context))
+
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
   ('/addShop', AddShop),
+  ('/deleteShop', DeleteShop)
 ], debug=True)
