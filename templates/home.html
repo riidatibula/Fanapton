@@ -17,22 +17,26 @@
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
 				<h3 class="panel-title pull-left" style="padding-top: 7px">{{ shop.name }}</h3>
-				<form method="POST" action="#">
+				{% if user %}
+				<form method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
 					<div class="pull-right">
 						<button type="submit" class="btn btn-danger btn-sm">Remove</button>
 					</div>
 				</form>
-				{% if user %}
-				<form method="POST" action="/deleteShop">
+				<form method="POST" action="#">
+					<div class="pull-right">
+						<button type="submit" class="btn btn-success btn-sm">Edit Shop</button>
+					</div>
+				</form>
+				{% endif %}
+				<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">
 					<div class="pull-right">
 						<button type="submit" class="btn btn-primary btn-sm">Enter Shop</button>
 					</div>
 				</form>
-				{% endif %}
 			</div>
 			<div class="panel-body">
 				<p>Shop Owner: {{ shop.owner }}</p>
-				<p>Shop ID: {{ shop.key.id() }}</p>
 				<p>Contacts:
 					{% for contact in shop.contacts %}
 						{{ contact }}
