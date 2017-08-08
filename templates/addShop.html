@@ -16,7 +16,7 @@
 	<div class="panel panel-default col-sm-4 col-md-4 col-lg-4 col-lg-offset-4 addShop">
   	<div class="panel-body ">
 		<h4 style="text-align: center;">Add Shop</h4>
-			<form class="form-horizontal" action="addShop" method="POST">
+			<form class="form-horizontal" action="addShop" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<input type="text" name="owner" class="form-control" placeholder="Owner" required>
 			   </div>
@@ -30,7 +30,10 @@
 					<input type="text" name="address" class="form-control" placeholder="Complete Adress" required>
 			   </div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-success col-lg-offset-6"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Create</button>
+					<input type="file" name="image" class="file">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success col-lg-offset-5"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Create</button>
 					<a href="/" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;Cancel</a>
 				</div>
 			</form>
