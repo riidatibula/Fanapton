@@ -12,7 +12,7 @@
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}
-	{% for shop in shops %}
+	<!-- {% for shop in shops %}
 		<div class="col-lg-6 col-lg-offset-3">
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
@@ -39,37 +39,36 @@
 			</div>
 		</div>
 		</div>
-		{% endfor %}
+		{% endfor %} -->
 
-		<div class="row">
-			<!-- {% for shop in shops %} -->
-			   <div class="col-sm-6 col-md-4">
-			    	<div class="thumbnail">
-				      <img src="{{ shop.image }}" alt="...">
-				      <div class="caption">
-							<h3>{{ shop.name }}</h3>
-							<p>Shop Owner: {{ shop.owner }}</p>
-							<p>Contacts:
-								{% for contact in shop.contacts %}
-									{{ contact }}
-								{% endfor %}
-							</p>
-							<p>Address: 
-								{% for address in shop.address %}
-									{{ address }}
-								{% endfor %}
-							</p>
-							<p>
-								<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">
-									<button type="submit" class="btn btn-primary btn-sm">Enter Shop</button>
-								</form>
-							</p>
-				      </div>
-			    	</div>
-			  	</div>
-
-		  	<!-- {% endfor %} -->
-		</div>
+	<div class="row">
+		{% for shop in shops %}
+		   <div class="col-sm-6 col-md-4">
+		    	<div class="thumbnail">
+			      <img src="{{ shop.image }}" alt="cover_image">
+			      <div class="caption">
+						<h3>{{ shop.name }}</h3>
+						<p>Shop Owner: {{ shop.owner }}</p>
+						<p>Contacts:
+							{% for contact in shop.contacts %}
+								{{ contact }}
+							{% endfor %}
+						</p>
+						<p>Address: 
+							{% for address in shop.address %}
+								{{ address }}
+							{% endfor %}
+						</p>
+						<p>
+							<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">
+								<button type="submit" class="btn btn-primary btn-sm">Enter Shop</button>
+							</form>
+						</p>
+			      </div>
+		    	</div>
+		  	</div>
+	  	{% endfor %}
+	</div>
 
 	{% if user %}
 		<a href="/addShop" class="btn btn-primary btn-sm">Add Shop</a>
