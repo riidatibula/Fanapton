@@ -9,6 +9,7 @@ import storage
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from models import Shop
+from models import Apparel
 
 #Configure Jinja
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -43,7 +44,6 @@ class MainPage(webapp2.RequestHandler):
 
 class AddShop(webapp2.RequestHandler):
   def get(self):
-
     user = users.get_current_user()
 
     if user:
@@ -80,7 +80,6 @@ class AddShop(webapp2.RequestHandler):
 
 class ShopDetails(webapp2.RequestHandler):
   def handle_requests(self, url_string):
-    
     shop_key = ndb.Key(urlsafe=url_string)
     shop = shop_key.get()
 
@@ -112,9 +111,51 @@ class ShopDetails(webapp2.RequestHandler):
 
 class DeleteShop(webapp2.RequestHandler):
   def post(self, url_string):
-
     shop_key = ndb.Key(urlsafe=url_string)
     shop_key.delete()
+
+    self.redirect('/')
+
+
+class AddApparel(webapp2.RequestHandler):
+  def get(self, url_string):
+    shop_key = ndb.Key(urlsafe=url_string)
+    shop = shop_key.get()
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'logout'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'login'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+      'shop': shop
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('addApparel.html')
+    self.response.write(template.render(context))
+
+  def post(self, url_string):
+    shop_key = ndb.Key(urlsafe=url_string)
+    shop = shop_key.get()
+
+    name = self.request.POST.get('name')
+    price = int(self.request.POST.get('price'))
+    image = self.request.POST.get('image')
+    image_url = storage.upload_file(image)
+    tags = []
+
+    apparel = Apparel(name=name, image=image_url, price=price)
+    apparel.put()
+
+    shop.apparels.append(apparel)
+    shop.put()
 
     self.redirect('/')
 
@@ -123,5 +164,6 @@ app = webapp2.WSGIApplication([
 	('/', MainPage),
   ('/addShop', AddShop),
   ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
-  ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop)
+  ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
+  ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel)
 ], debug=True)

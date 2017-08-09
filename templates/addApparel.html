@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Fanapton Add Shop{% endblock %}
+{% block title %}Fanapton Add Apparel{% endblock %}
 
 {% block user %}
 	{% if user %}{{ user.nickname() }}
@@ -11,23 +11,18 @@
 
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
-{% block body %}
 
+
+{% block body %}
 	<div class="panel panel-default col-sm-4 col-md-4 col-lg-4 col-lg-offset-4 addShop">
   	<div class="panel-body ">
-		<h4 style="text-align: center;">Add Shop</h4>
-			<form class="form-horizontal" action="/addShop" method="POST" enctype="multipart/form-data">
+		<h4 style="text-align: center;">Add Apparel for {{ shop.name }}</h4>
+			<form class="form-horizontal" action="/addApparel/{{ shop.key.urlsafe() }}" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
-					<input type="text" name="owner" class="form-control" placeholder="Owner" required>
+					<input type="text" name="name" class="form-control" placeholder="Apparel Name" required>
 			   </div>
 			   <div class="form-group">
-					<input type="text" name="name" class="form-control" placeholder="Shop Name" required>
-			   </div>
-			  	<div class="form-group">
-					<input type="text" name="contact" class="form-control" placeholder="Contact" required>
-			   </div>
-			   <div class="form-group">
-					<input type="text" name="address" class="form-control" placeholder="Complete Adress" required>
+					<input type="number" name="price" class="form-control" placeholder="Price" required>
 			   </div>
 				<div class="form-group">
 					<input type="file" name="image" class="file">
@@ -39,5 +34,4 @@
 			</form>
   	</div>
 	</div>
-
 {% endblock %}
