@@ -13,21 +13,41 @@
 
 {% block body %}
 	<div class="col-lg-6 col-lg-offset-3">
-		<div class="well">
-			<p>Shop Name: {{ shop.name }}</p>
-			<p>Owner: {{ shop.owner}}</p>
-			<p>Contacts:
-				{% for contact in shop.contacts %}
-					{{ contact }}
-				{% endfor %}
-			</p>
-			<p>Address:
-				{% for address in shop.address %}
-					{{ address }}
-				{% endfor %}
-			</p>
+		<div class="well clearfix">
+			<div class="pull-left">
+				<p>Shop Name: {{ shop.name }}</p>
+				<p>Owner: {{ shop.owner}}</p>
+				<p>Contacts:
+					{% for contact in shop.contacts %}
+						{{ contact }}
+					{% endfor %}
+				</p>
+				<p>Address:
+					{% for address in shop.address %}
+						{{ address }}
+					{% endfor %}
+				</p>
+			</div>
+			<p><img src="{{ shop.image }}" class="cover_image pull-right"></p>
 		</div>
-		{% if user %}
+
+		{% if shop.apparels %}
+			{% for apparel in shop.apparels %}
+				<div class="col-sm-5 col-md-3">
+			    	<div class="thumbnail">
+				      <img src="{{ apparel.image }}" alt="cover_image">
+				      <div class="caption">
+				      	<h3>{{ apparel.name}}</h3>
+				      	<p>{{ apparel.price }}</p>
+				      </div>
+			    	</div>
+			  	</div>
+			{% endfor %}
+		{% else %}
+			<p>No apparels yet</p>
+		{% endif %}
+
+		{% if user.email() == 'rIIdatibula@gmail.com' %}
 			<form method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
 				<div class="pull-right">
 					<button type="submit" class="btn btn-danger btn-sm">Remove</button>
@@ -36,6 +56,11 @@
 			<form method="POST" action="#">
 				<div class="pull-right">
 					<button type="submit" class="btn btn-success btn-sm">Edit Shop</button>
+				</div>
+			</form>
+			<form method="POST" action="#">
+				<div class="pull-right">
+					<button type="submit" class="btn btn-primary btn-sm">Add Apparel</button>
 				</div>
 			</form>
 		{% endif %}
