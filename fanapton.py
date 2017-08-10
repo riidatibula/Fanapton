@@ -26,10 +26,10 @@ class MainPage(webapp2.RequestHandler):
 
     if user:
       url = users.create_logout_url(self.request.uri)
-      url_linktext = 'logout'
+      url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'login'
+      url_linktext = 'Log in'
 
     context = {
     	'user': user,
@@ -48,10 +48,10 @@ class AddShop(webapp2.RequestHandler):
 
     if user:
       url = users.create_logout_url('/')
-      url_linktext = 'logout'
+      url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'login'
+      url_linktext = 'Log in'
 
     context = {
       'user': user,
@@ -87,10 +87,10 @@ class ShopDetails(webapp2.RequestHandler):
 
     if user:
       url = users.create_logout_url('/')
-      url_linktext = 'logout'
+      url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'login'
+      url_linktext = 'Log in'
 
     context = {
       'user': user,
@@ -126,10 +126,10 @@ class AddApparel(webapp2.RequestHandler):
 
     if user:
       url = users.create_logout_url('/')
-      url_linktext = 'logout'
+      url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'login'
+      url_linktext = 'log in'
 
     context = {
       'user': user,

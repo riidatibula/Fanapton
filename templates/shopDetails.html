@@ -7,29 +7,32 @@
 	{% else %}no user{% endif %}
 {% endblock %}
 
+{% block navbar_form %}
+	<form class="navbar-form navbar-left" method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
+		<button type="submit" class="btn btn-default">Remove</button>
+	</form>
+{% endblock %}
+
+{% block admin %}
+	{% if user %}
+		{% if user.email() == 'rIIdatibula@gmail.com' %}
+			<li>
+				<a href="/addApparel/{{ shop.key.urlsafe() }}">Add Apparel</a>
+			</li>
+			<li>
+				<a href="#">Edit Shop</a>
+			</li>
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
 {% block url %}{{ url }}{% endblock %}
 
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}
 
-	{% if user.email() == 'rIIdatibula@gmail.com' %}
-		<form method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
-			<div class="pull-right">
-				<button type="submit" class="btn btn-default btn-sm">Remove</button>
-			</div>
-		</form>
-		<form method="POST" action="#">
-			<div class="pull-right">
-				<button type="submit" class="btn btn-default btn-sm">Edit Shop</button>
-			</div>
-		</form>
-		<div class="pull-right">
-			<a href="/addApparel/{{ shop.key.urlsafe() }}" class="btn btn-default btn-sm">Add Apparel</a>
-		</div>
-	{% endif %}
-
-	<div class="col-lg-6 col-lg-offset-3">
+	<div class="col-lg-8 col-lg-offset-2">
 		<div class="well clearfix">
 			<div class="pull-right">
 				<p>Shop Name: {{ shop.name.upper() }}</p>
@@ -47,7 +50,9 @@
 			</div>
 			<p><img src="{{ shop.image }}" class="cover_image pull-left"></p>
 		</div>
+	</div>
 
+	<div class="col-lg-8 col-lg-offset-2">
 		<h3 style="text-align: center;">Apparels</h3>
 		{% if shop.apparels %}
 			{% for apparel in shop.apparels %}

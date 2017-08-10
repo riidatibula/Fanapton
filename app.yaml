@@ -27,6 +27,11 @@ handlers:
   login: required
   auth_fail_action: redirect
 
+- url: /addApparel/.*
+  script: fanapton.app
+  login: required
+  auth_fail_action: redirect
+
 - url: /.*
   script: fanapton.app
 

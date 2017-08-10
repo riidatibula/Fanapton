@@ -14,7 +14,7 @@
 
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/">Fanapton</a>
 			</div>
@@ -25,9 +25,10 @@
 					</div>
 					<button type="submit" class="btn btn-default">Search Shop</button>
 				</form>
-
+				{% block navbar_form %}{% endblock %}
+				
 				<ul class="nav navbar-nav navbar-right">
-					{% block addShop %}{% endblock %}
+					{% block admin %}{% endblock %}
 					<li>
 						<a href="#">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
