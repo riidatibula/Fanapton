@@ -10,11 +10,6 @@
 	margin-top: 50px;
 }
 
-.body{
-	margin-left: 100px;
-	margin-right: 100px;
-}
-
 .cover_image{
 	max-height: 200px;
 	max-width: 200px;
@@ -22,4 +17,13 @@
 
 .shop_name{
 	font-family: 'Cabin', sans-serif;
+}
+
+.navbar-fixed-bottom a{
+	font-size: 0.8em;
+}
+
+body { 
+	padding-top: 70px; 
+	padding-bottom: 70px;
 }

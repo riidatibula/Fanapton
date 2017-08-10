@@ -7,6 +7,16 @@
 	{% else %}no user{% endif %}
 {% endblock %}
 
+{% block addShop %}
+	{% if user %}
+		{% if user.email() == 'rIIdatibula@gmail.com' %}
+			<li>
+				<a href="/addShop">Add Shop</a>
+			</li>
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
 {% block url %}{{ url }}{% endblock %}
 
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
@@ -43,7 +53,7 @@
 
 	<div class="row">
 		{% for shop in shops %}
-		   <div class="col-sm-6 col-md-4">
+		   <div class="col-sm-3 col-md-3">
 		    	<div class="thumbnail">
 			      <img src="{{ shop.image }}" alt="cover_image">
 			      <div class="caption">
@@ -64,7 +74,4 @@
 	  	{% endfor %}
 	</div>
 
-	{% if user %}
-		<a href="/addShop" class="btn btn-primary btn-sm">Add Shop</a>
-	{% endif %}
 {% endblock %}
