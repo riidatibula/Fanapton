@@ -47,21 +47,15 @@
 		    	<div class="thumbnail">
 			      <img src="{{ shop.image }}" alt="cover_image">
 			      <div class="caption">
-						<h3>{{ shop.name }}</h3>
-						<p>Shop Owner: {{ shop.owner }}</p>
-						<p>Contacts:
-							{% for contact in shop.contacts %}
-								{{ contact }}
-							{% endfor %}
-						</p>
-						<p>Address: 
+						<h3 class="shop_name">{{ shop.name.upper() }}</h3>
+						<p>
 							{% for address in shop.address %}
 								{{ address }}
 							{% endfor %}
 						</p>
 						<p>
 							<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">
-								<button type="submit" class="btn btn-primary btn-sm">Enter Shop</button>
+								<button type="submit" class="btn btn-default btn-sm">Enter Shop</button>
 							</form>
 						</p>
 			      </div>
