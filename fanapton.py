@@ -148,10 +148,11 @@ class AddApparel(webapp2.RequestHandler):
     name = self.request.POST.get('name')
     price = int(self.request.POST.get('price'))
     image = self.request.POST.get('image')
+    desc = self.request.POST.get('desc')
     image_url = storage.upload_file(image)
     tags = []
 
-    apparel = Apparel(name=name, image=image_url, price=price)
+    apparel = Apparel(name=name, image=image_url, price=price, description=desc)
     apparel.put()
 
     shop.apparels.append(apparel)

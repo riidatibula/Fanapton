@@ -10,11 +10,6 @@
 	margin-top: 50px;
 }
 
-.cover_image{
-	max-height: 200px;
-	max-width: 200px;
-}
-
 .shop_name{
 	font-family: 'Cabin', sans-serif;
 }
@@ -25,8 +20,60 @@
 
 body { 
 	padding-top: 100px; 
-	padding-bottom: 70px;
-	background-color: #F5F5F5;
+	padding-bottom: 70px;/*
+	background-color: #F5F5F5;*/
+}
+
+.info{
+	display: inline-block;
+}
+
+.shop_details{
+	text-align: center;
+	margin: 0 0 15px 0;
+}
+
+.shop_details p{
+	font-size: 0.9em;
+	font-family: 'Cabin', sans-serif;
+}
+
+.shop_details h2{
+	font-family: 'Cabin', sans-serif;
+	font-family: 'Taviraj', serif;
+}
+
+.shop_details .address{
+	padding-right: 50px;
+}
+
+.shop_details .contacts{
+	padding-left: 50px;
+}
+
+.apparel_img{
+	max-height: 300px;
+	width: 100%;
+}
+
+.apparel .thumbnail{
+	width : 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.apparel h3{
+	text-align: center;
+	font-family: 'Cinzel', serif;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.apparel p{
+	text-align: center;
+	font-size: 0.8em;
+	font-family: 'Average', serif;
+	margin: 0px;
 }
 
 .thumbnail{
@@ -35,7 +82,22 @@ body {
     overflow: hidden;
 }
 
-.thumbnail img{
+.thumbnail .cover_image{
     width: 100%;
     max-height: 200px;
+}
+
+.circular--landscape {
+	display: inline-block;
+	position: relative;
+	max-width: 200px;
+	max-height: 200px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.circular--landscape img {
+	width: auto;
+	height: 100%;
+	margin-left: -50px;
 }

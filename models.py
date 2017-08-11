@@ -4,6 +4,7 @@ class Apparel(ndb.Model):
 	name = ndb.StringProperty(indexed=False)
 	image = ndb.StringProperty(indexed=False)
 	tags = ndb.StringProperty(indexed=False, repeated=True)
+	description = ndb.StringProperty(indexed=False)
 	price = ndb.IntegerProperty(indexed=False)
 
 class Shop(ndb.Model):

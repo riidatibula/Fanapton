@@ -31,11 +31,30 @@
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}
+	
+	<div class="shop_details">
+		<div class="info">
+			<p class="address">
+				{% for address in shop.address %}
+					{{ address }}
+				{% endfor %}
+			</p>
+		</div>
+		<div class="info">
+			<h2 class="shop"><strong>{{ shop.name.upper() }}</strong></h2>
+		</div>
+		<div class="info"> 
+			<p class="contacts">
+				{% for contact in shop.contacts %}
+					{{ contact }}
+				{% endfor %}
+			</p>
+		</div>
+	</div>
 
-	<div class="col-lg-8 col-lg-offset-2">
+	<!-- <div class="col-lg-8 col-lg-offset-2">
 		<div class="well clearfix">
 			<div class="pull-right">
-				<p>Shop Name: {{ shop.name.upper() }}</p>
 				<p>Owner: {{ shop.owner}}</p>
 				<p>Contacts:
 					{% for contact in shop.contacts %}
@@ -48,19 +67,21 @@
 					{% endfor %}
 				</p>
 			</div>
-			<p><img src="{{ shop.image }}" class="cover_image pull-left"></p>
+			<div class="circular--landscape">
+				<p><img src="{{ shop.image }}" class="cover_image pull-left"></p>
+			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="col-lg-8 col-lg-offset-2">
-		<h3 style="text-align: center;">Apparels</h3>
 		{% if shop.apparels %}
 			{% for apparel in shop.apparels %}
-				<div class="col-sm-5 col-md-3">
+				<div class="col-sm-4 col-md-4 apparel">
 			    	<div class="thumbnail">
-				      <img src="{{ apparel.image }}" alt="apparel_img">
+				      <img src="{{ apparel.image }}" alt="apparel_img" class="apparel_img">
 				      <div class="caption">
-				      	<h3>{{ apparel.name}}</h3>
+				      	<h3>{{ apparel.name.upper() }}</h3>
+				      	<p>{{ apparel.description }}</p>
 				      	<p>Php. {{ apparel.price }}.00</p>
 				      </div>
 			    	</div>
