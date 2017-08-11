@@ -8,9 +8,13 @@
 {% endblock %}
 
 {% block navbar_form %}
-	<form class="navbar-form navbar-left" method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
-		<button type="submit" class="btn btn-default">Remove</button>
-	</form>
+	{% if user %}
+		{% if user.email() == 'rIIdatibula@gmail.com' %}
+			<form class="navbar-form navbar-left" method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
+				<button type="submit" class="btn btn-default">Remove</button>
+			</form>
+		{% endif %}
+	{% endif %}
 {% endblock %}
 
 {% block admin %}
@@ -32,6 +36,11 @@
 
 {% block body %}
 	
+
+	<div style="text-align: center;">
+		<h2 class="shop"><strong>{{ shop.name.upper() }}</strong></h2>
+	</div>
+	
 	<div class="shop_details">
 		<div class="info">
 			<p class="address">
@@ -39,9 +48,6 @@
 					{{ address }}
 				{% endfor %}
 			</p>
-		</div>
-		<div class="info">
-			<h2 class="shop"><strong>{{ shop.name.upper() }}</strong></h2>
 		</div>
 		<div class="info"> 
 			<p class="contacts">
