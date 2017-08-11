@@ -161,10 +161,47 @@ class AddApparel(webapp2.RequestHandler):
     self.redirect('/')
 
 
+class ApparelDetails(webapp2.RequestHandler):
+  def get(self, url_safe, apparel_name):
+    shop_key = ndb.Key(urlsafe=url_safe)
+    shop = shop_key.get()
+
+    apparels = Apparel.query()
+
+    for app in apparels:
+      if app.name == apparel_name:
+        apparel = app
+
+    # print shops
+    print apparels
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'Log out'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'log in'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+      'shop': shop,
+      'apparel': apparel
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('apparelDetails.html')
+    self.response.write(template.render(context))
+
+
+
 app = webapp2.WSGIApplication([
 	('/', MainPage),
   ('/addShop', AddShop),
   ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
-  ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel)
+  ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel),
+  ('/shopDetails/(?P<url_safe>[\w\-]+)/apparelDetails/(?P<apparel_name>[\w\-]+)/', ApparelDetails),
 ], debug=True)

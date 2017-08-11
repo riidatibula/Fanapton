@@ -1,0 +1,6 @@
+indexes:
+- kind: Apparel
+  ancestor: yes
+  properties:
+  - name: name
+    direction: desc
