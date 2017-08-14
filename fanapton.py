@@ -166,13 +166,17 @@ class ApparelDetails(webapp2.RequestHandler):
     shop_key = ndb.Key(urlsafe=url_safe)
     shop = shop_key.get()
 
+    data = apparel_name.split("%20")
     apparels = Apparel.query()
+
+    if len(data) > 1:
+      apparel_name = " ".join(data)
 
     for app in apparels:
       if app.name == apparel_name:
         apparel = app
 
-    # print shops
+    print apparel_name
     print apparels
 
     user = users.get_current_user()
