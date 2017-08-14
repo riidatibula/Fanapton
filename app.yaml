@@ -32,6 +32,11 @@ handlers:
   login: required
   auth_fail_action: redirect
 
+- url: /myCart/.*
+  script: fanapton.app
+  login: required
+  auth_fail_action: redirect
+
 - url: /.*
   script: fanapton.app
 

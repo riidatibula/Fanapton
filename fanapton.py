@@ -10,6 +10,7 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from models import Shop
 from models import Apparel
+from models import Cart
 
 #Configure Jinja
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -176,9 +177,6 @@ class ApparelDetails(webapp2.RequestHandler):
       if app.name == apparel_name:
         apparel = app
 
-    print apparel_name
-    print apparels
-
     user = users.get_current_user()
 
     if user:
@@ -200,6 +198,28 @@ class ApparelDetails(webapp2.RequestHandler):
     self.response.write(template.render(context))
 
 
+class MyCart(webapp2.RequestHandler):
+  def get(self, user_id):
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'Log out'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'log in'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('myCart.html')
+    self.response.write(template.render(context))
+
+
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
@@ -208,4 +228,5 @@ app = webapp2.WSGIApplication([
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
   ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel),
   ('/shopDetails/(?P<url_safe>[\w\-]+)/(?P<apparel_name>[\w\-]+)/', ApparelDetails),
+  ('/myCart/(?P<user_id>\d+)/', MyCart),
 ], debug=True)

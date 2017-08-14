@@ -4,3 +4,9 @@ indexes:
   properties:
   - name: name
     direction: desc
+
+- kind: Cart
+  ancestor: yes
+  properties:
+  - name: user_id
+    direction: desc

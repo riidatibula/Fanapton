@@ -77,6 +77,10 @@ body {
 	margin: 0px;
 }
 
+.apparel_details .thumbnail{
+	border-style: none;
+}
+
 .thumbnail{
     width : 100%;
     height: 350px;

@@ -16,3 +16,7 @@ class Shop(ndb.Model):
 	image = ndb.StringProperty(indexed=False)
 	apparels = ndb.LocalStructuredProperty(Apparel, repeated=True)
 
+class Cart(ndb.Model):
+	user_id = ndb.IntegerProperty(indexed=True, required=True),
+	apparels = ndb.LocalStructuredProperty(Apparel, repeated=True)
+
