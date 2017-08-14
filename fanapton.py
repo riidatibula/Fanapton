@@ -207,5 +207,5 @@ app = webapp2.WSGIApplication([
   ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
   ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel),
-  ('/shopDetails/(?P<url_safe>[\w\-]+)/apparelDetails/(?P<apparel_name>[\w\-]+)/', ApparelDetails),
+  ('/shopDetails/(?P<url_safe>[\w\-]+)/(?P<apparel_name>[\w\-]+)/', ApparelDetails),
 ], debug=True)
