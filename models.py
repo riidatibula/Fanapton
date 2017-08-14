@@ -8,12 +8,16 @@ class Apparel(ndb.Model):
 	price = ndb.IntegerProperty(indexed=False)
 
 class Shop(ndb.Model):
-	owner = ndb.StringProperty(indexed=False, required=True)
 	name = ndb.StringProperty(required=True)
+	about = ndb.StringProperty(indexed=False, required=True)
+	overview = ndb.StringProperty(indexed=False, required=True)
 	address = ndb.StringProperty(indexed=False, repeated=True)
-	contacts = ndb.StringProperty(indexed=False, repeated=True)
+	emails = ndb.StringProperty(indexed=False, repeated=True)
+	websites = ndb.StringProperty(indexed=False, repeated=True)
+	awards = ndb.StringProperty(indexed=False, repeated=True) 
 	date_joined = ndb.DateTimeProperty(auto_now_add=True)
-	image = ndb.StringProperty(indexed=False)
+	cover_image = ndb.StringProperty(indexed=False)
+	profile_image = ndb.StringProperty(indexed=False)
 	apparels = ndb.LocalStructuredProperty(Apparel, repeated=True)
 
 class Cart(ndb.Model):

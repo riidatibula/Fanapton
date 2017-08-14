@@ -17,6 +17,11 @@ handlers:
   login: required
   auth_fail_action: redirect
 
+- url: /search
+  script: fanapton.app
+  login: required
+  auth_fail_action: redirect
+
 - url: /shopDetails/.*
   script: fanapton.app
   login: required

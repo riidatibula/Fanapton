@@ -21,8 +21,24 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MainPage(webapp2.RequestHandler):
   def get(self):
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'Log out'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'Log in'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+    }
+
     template = JINJA_ENVIRONMENT.get_template('home.html')
-    self.response.write(template.render())
+    self.response.write(template.render(context))
 
 
 class Search(webapp2.RequestHandler):
@@ -32,7 +48,7 @@ class Search(webapp2.RequestHandler):
     user = users.get_current_user()
 
     if user:
-      url = users.create_logout_url(self.request.uri)
+      url = users.create_logout_url('/')
       url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
@@ -70,19 +86,28 @@ class AddShop(webapp2.RequestHandler):
     self.response.write(template.render(context))
 
   def post(self):
-    owner = self.request.POST.get('owner')
     name = self.request.POST.get('name')
-    contact = self.request.POST.get('contact')
+    about = self.request.POST.get('about')
+    overview = self.request.POST.get('overview')
     address = self.request.POST.get('address')
-    image = self.request.POST.get('image')
-    address_list = [address]
-    contact_list = [contact]
-    image_url = storage.upload_file(image)
+    email = self.request.POST.get('email')
+    website = self.request.POST.get('website')
+    award = self.request.POST.get('award')
+    cover_image = self.request.POST.get('cover_image')
+    profile_image = self.request.POST.get('profile_image')
 
-    shop = Shop(owner=owner, name=name, contacts=contact_list, address=address_list, image=image_url)
+    address_list = [address]
+    email_list = [email]
+    website_list = [website]
+    award_list = [award]
+    cover_image_url = storage.upload_file(cover_image)
+    profile_image_url = storage.upload_file(profile_image)
+
+    shop = Shop(name=name, about=about, overview=overview, address=address_list, emails=email_list, 
+      websites=website_list, awards=award_list, cover_image=cover_image_url, profile_image=profile_image_url)
     shop.put()
 
-    self.redirect('/')
+    self.redirect('/search')
 
 
 class ShopDetails(webapp2.RequestHandler):

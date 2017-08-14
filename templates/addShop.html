@@ -17,20 +17,34 @@
   	<div class="panel-body ">
 		<h4 style="text-align: center;">Add Shop</h4>
 			<form class="form-horizontal" action="/addShop" method="POST" enctype="multipart/form-data">
-				<div class="form-group">
-					<input type="text" name="owner" class="form-control" placeholder="Owner" required>
-			   </div>
 			   <div class="form-group">
 					<input type="text" name="name" class="form-control" placeholder="Shop Name" required>
 			   </div>
-			  	<div class="form-group">
-					<input type="text" name="contact" class="form-control" placeholder="Contact" required>
+				<div class="form-group">
+					<input type="text" name="about" class="form-control" placeholder="About" required>
+			   </div>
+			   <div class="form-group">
+					<input type="text" name="overview" class="form-control" placeholder="Company Overview" required>
 			   </div>
 			   <div class="form-group">
 					<input type="text" name="address" class="form-control" placeholder="Complete Adress" required>
 			   </div>
+			  	<div class="form-group">
+					<input type="text" name="website" class="form-control" placeholder="Website" required>
+			   </div>
+			  	<div class="form-group">
+					<input type="text" name="email" class="form-control" placeholder="Email" required>
+			   </div>
+			   <div class="form-group">
+					<input type="text" name="award" class="form-control" placeholder="Award">
+			   </div>
+			   <label>Cover Image</label>
 				<div class="form-group">
-					<input type="file" name="image" class="file">
+					<input type="file" name="cover_image" class="file">
+				</div>
+				<label>Profile Image</label>
+				<div class="form-group">
+					<input type="file" name="profile_image" class="file">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-success col-lg-offset-5"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Create</button>

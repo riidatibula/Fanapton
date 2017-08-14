@@ -4,13 +4,9 @@ html, body {
 
 /*-----------Homepage----------*/
 
-.title{
-	position: absolute;
-	font-family: 'Satisfy', cursive;
-	font-size: 3em;
-	top: 10px;
-	color: white;
-	padding-left: 50px;
+.transparent{
+	background: rgba(0,0,0,0);
+	border-style: none;
 }
 
 .shop-now{
@@ -24,7 +20,7 @@ html, body {
 	height: 100px;
 }
 
-.shop-now button{
+.shop-now a{
 	outline:white solid;
 	border-radius: 3px;
 	color: white;
@@ -34,7 +30,7 @@ html, body {
 	font-family: 'Taviraj', serif;
 }
 
-.shop-now button:hover{
+.shop-now a:hover{
 	background: #008080;
 	outline: none;
 	color: white;
@@ -89,7 +85,7 @@ html, body {
 }
 
 .shop_name{
-	font-family: 'Cabin', sans-serif;
+	font-family: 'Taviraj', serif;
 }
 
 .navbar-fixed-bottom a{
@@ -155,14 +151,18 @@ html, body {
 
 .thumbnail{
     width : 100%;
-    height: 350px;
+   	max-height: 600px;
     overflow: hidden;
 }
 
 .thumbnail .cover_image{
     width: 100%;
-    max-height: 200px;
+    max-height: 400px;
 }
 
+.shop_preview p{
+	font-size: 0.9em;
+	font-family: 'Average', serif;
+}
 
 
