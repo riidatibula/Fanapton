@@ -21,6 +21,12 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MainPage(webapp2.RequestHandler):
   def get(self):
+    template = JINJA_ENVIRONMENT.get_template('home.html')
+    self.response.write(template.render())
+
+
+class Search(webapp2.RequestHandler):
+  def get(self):
     shops = Shop.query()
 
     user = users.get_current_user()
@@ -33,13 +39,13 @@ class MainPage(webapp2.RequestHandler):
       url_linktext = 'Log in'
 
     context = {
-    	'user': user,
-    	'url': url,
-    	'url_linktext': url_linktext,
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
       'shops': shops
     }
 
-    template = JINJA_ENVIRONMENT.get_template('home.html')
+    template = JINJA_ENVIRONMENT.get_template('searchAll.html')
     self.response.write(template.render(context))
 
 
@@ -223,6 +229,7 @@ class MyCart(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
+  ('/search', Search),
   ('/addShop', AddShop),
   ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),

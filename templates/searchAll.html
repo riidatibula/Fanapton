@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Fanapton{% endblock %}
+
+{% block user %}
+	{% if user %}{{ user.nickname() }}
+	{% else %}no user{% endif %}
+{% endblock %}
+
+{% block nav %}
+	{% if user %}
+		{% if user.email() == 'rIIdatibula@gmail.com' %}
+			<li>
+				<a href="/addShop">Add Shop</a>
+			</li>
+		{% endif %}
+		<li>
+			<a href="/myCart/{{ user.user_id() }}/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;My Cart</a>
+		</li>
+	{% endif %}
+{% endblock %}
+
+{% block url %}{{ url }}{% endblock %}
+
+{% block url_linktext %}{{ url_linktext }}{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for shop in shops %}
+		   <div class="col-sm-3 col-md-3">
+		    	<div class="thumbnail">
+			      <img src="{{ shop.image }}" class="cover_image">
+			      <div class="caption">
+						<h3 class="shop_name">{{ shop.name.upper() }}</h3>
+						<p>
+							{% for address in shop.address %}
+								{{ address }}
+							{% endfor %}
+						</p>
+						<p>
+							<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">
+								<button type="submit" class="btn btn-default btn-sm">Enter Shop</button>
+							</form>
+						</p>
+			      </div>
+		    	</div>
+		  	</div>
+	  	{% endfor %}
+	</div>
+
+{% endblock %}

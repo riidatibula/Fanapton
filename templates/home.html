@@ -1,51 +1,69 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fanapton</title>
 
-{% block title %}Fanapton{% endblock %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Taviraj" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/templates/static/style.css">
+</head>
+<body>
 
-{% block user %}
-	{% if user %}{{ user.nickname() }}
-	{% else %}no user{% endif %}
-{% endblock %}
+	<div id="myCarousel" class="carousel slide">
+		<div class="carousel-inner">
+		   <div class="item active">
+				<div class="fill">
+					<img src="https://storage.googleapis.com/fanapton.appspot.com/carousel/bg1.jpg" alt="image">
+				</div>
+		   </div>
+		   <div class="item">
+		       <div class="fill">
+					<img src="https://storage.googleapis.com/fanapton.appspot.com/carousel/bg2.jpg" alt="image">
+				</div>
+		   </div>
+		   <div class="item">
+				<div class="fill">
+					<img src="https://storage.googleapis.com/fanapton.appspot.com/carousel/bg3.jpg" alt="image">
+				</div>
+			</div>
+		</div>
+   </div>
 
-{% block nav %}
-	{% if user %}
-		{% if user.email() == 'rIIdatibula@gmail.com' %}
-			<li>
-				<a href="/addShop">Add Shop</a>
-			</li>
-		{% endif %}
-		<li>
-			<a href="/myCart/{{ user.user_id() }}/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;My Cart</a>
-		</li>
-	{% endif %}
-{% endblock %}
-
-{% block url %}{{ url }}{% endblock %}
-
-{% block url_linktext %}{{ url_linktext }}{% endblock %}
-
-{% block body %}
-	<div class="row">
-		{% for shop in shops %}
-		   <div class="col-sm-3 col-md-3">
-		    	<div class="thumbnail">
-			      <img src="{{ shop.image }}" class="cover_image">
-			      <div class="caption">
-						<h3 class="shop_name">{{ shop.name.upper() }}</h3>
-						<p>
-							{% for address in shop.address %}
-								{{ address }}
-							{% endfor %}
-						</p>
-						<p>
-							<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">
-								<button type="submit" class="btn btn-default btn-sm">Enter Shop</button>
-							</form>
-						</p>
-			      </div>
-		    	</div>
-		  	</div>
-	  	{% endfor %}
+   <div class="col-lg-2 title">
+		<p>FANAPTON</p>
 	</div>
 
-{% endblock %}
+	<div align="center" class="shop-now">
+		<button class="btn btn-default btn-lg">Shop Now</button>
+	</div>
+
+	<nav class="navbar navbar-default navbar-fixed-bottom footer">
+		<div class="container">
+			<ul class="nav navbar-nav navbar-left">
+				<li>
+					<a href="https://www.facebook.com/CisabethOfficial/">About Us</a>
+				</li>
+				<li>
+					<a href="https://www.facebook.com/CisabethOfficial/">Contact Us</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#"><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;2017 Cisabeth</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+		$('.carousel').carousel({
+		  interval: 3000
+		});
+	</script>
+</body>
+</html>
+	
