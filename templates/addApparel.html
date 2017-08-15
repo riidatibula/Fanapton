@@ -17,24 +17,24 @@
 	<div class="panel panel-default col-sm-4 col-md-4 col-lg-4 col-lg-offset-4 addShop">
   	<div class="panel-body ">
 		<h4 style="text-align: center;">Add Apparel for {{ shop.name }}</h4>
-			<form class="form-horizontal" action="/addApparel/{{ shop.key.urlsafe() }}" method="POST" enctype="multipart/form-data">
-				<div class="form-group">
-					<input type="text" name="name" class="form-control" placeholder="Apparel Name" required>
-			   </div>
-			   <div class="form-group">
-			   	<input type="text" name="desc" class="form-control" placeholder="Description" required>
-			   </div>
-			   <div class="form-group">
-					<input type="number" name="price" class="form-control" placeholder="Price" required>
-			   </div>
-				<div class="form-group">
-					<input type="file" name="image" class="file">
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-success col-lg-offset-5"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Create</button>
-					<a href="/" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;Cancel</a>
-				</div>
-			</form>
+		<form class="form-horizontal" action="/addApparel/{{ shop.key.urlsafe() }}" method="POST" enctype="multipart/form-data">
+			<div class="form-group">
+				<input type="text" name="name" class="form-control" placeholder="Apparel Name">
+		   </div>
+		   <div class="form-group">
+		   	<input type="text" name="desc" class="form-control" placeholder="Description" required>
+		   </div>
+		   <div class="form-group">
+				<input type="number" name="price" class="form-control" placeholder="Price" required>
+		   </div>
+			<div class="form-group">
+				<input type="file" name="image" class="file">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success col-lg-offset-5"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Create</button>
+				<a href="/" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;Cancel</a>
+			</div>
+		</form>
   	</div>
 	</div>
 {% endblock %}

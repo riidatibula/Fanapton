@@ -32,11 +32,6 @@
 			      <img src="{{ shop.cover_image }}" class="cover_image">
 			      <div class="caption">
 						<h3 class="shop_name">{{ shop.name.upper() }}</h3>
-						<p>
-							{% for address in shop.address %}
-								{{ address }}
-							{% endfor %}
-						</p><br>
 						<p>{{ shop.overview }}</p>
 						<p>
 							<form method="POST" action="/shopDetails/{{ shop.key.urlsafe() }}">

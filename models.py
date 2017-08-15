@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 
 class Apparel(ndb.Model):
 	name = ndb.StringProperty()
+	parsed_name = ndb.StringProperty()
 	image = ndb.StringProperty(indexed=False)
 	tags = ndb.StringProperty(indexed=False, repeated=True)
 	description = ndb.StringProperty(indexed=False)

@@ -38,7 +38,7 @@
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}	
-
+	
 	<div style="text-align: center;">
 		<h2 class="shop"><strong>{{ shop.name.upper() }}</strong></h2>
 	</div>
@@ -53,8 +53,8 @@
 		</div>
 		<div class="info"> 
 			<p class="contacts">
-				{% for contact in shop.contacts %}
-					{{ contact }}
+				{% for email in shop.emails %}
+					{{ email }}
 				{% endfor %}
 			</p>
 		</div>
@@ -65,7 +65,7 @@
 			{% for apparel in shop.apparels %}
 				<div class="col-sm-4 col-md-4 apparel">
 			    	<div class="thumbnail">
-				      <a href="/shopDetails/{{ shop.key.urlsafe() }}/{{ apparel.name }}/">
+				      <a href="/shopDetails/{{ shop.key.urlsafe() }}/{{ apparel.parsed_name }}/">
 				      <img src="{{ apparel.image }}" alt="apparel_img" class="apparel_img"></a>
 				      <div class="caption">
 				      	<h3>{{ apparel.name.upper() }}</h3>

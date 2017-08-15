@@ -146,7 +146,7 @@ class DeleteShop(webapp2.RequestHandler):
     shop_key = ndb.Key(urlsafe=url_string)
     shop_key.delete()
 
-    self.redirect('/')
+    self.redirect('/search')
 
 
 class AddApparel(webapp2.RequestHandler):
@@ -184,13 +184,20 @@ class AddApparel(webapp2.RequestHandler):
     image_url = storage.upload_file(image)
     tags = []
 
-    apparel = Apparel(name=name, image=image_url, price=price, description=desc)
+    data = name.split(" ")
+
+    if len(data) > 1:
+      parsed_name = "_".join(data)
+    elif len(data) == 1:
+      parsed_name = data[0]
+
+    apparel = Apparel(name=name, parsed_name=parsed_name, image=image_url, price=price, description=desc)
     apparel.put()
 
     shop.apparels.append(apparel)
     shop.put()
 
-    self.redirect('/')
+    self.redirect('/search')
 
 
 class ApparelDetails(webapp2.RequestHandler):
@@ -198,14 +205,10 @@ class ApparelDetails(webapp2.RequestHandler):
     shop_key = ndb.Key(urlsafe=url_safe)
     shop = shop_key.get()
 
-    data = apparel_name.split("%20")
     apparels = Apparel.query()
 
-    if len(data) > 1:
-      apparel_name = " ".join(data)
-
     for app in apparels:
-      if app.name == apparel_name:
+      if app.parsed_name == apparel_name:
         apparel = app
 
     user = users.get_current_user()
