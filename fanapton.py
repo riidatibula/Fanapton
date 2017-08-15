@@ -83,7 +83,7 @@ class AddShop(webapp2.RequestHandler):
       websites=website_list, awards=award_list, cover_image=cover_image_url, profile_image=profile_image_url)
     shop.put()
 
-    self.redirect('/search')
+    self.redirect('/allShops')
 
 
 class ShopDetails(webapp2.RequestHandler):
@@ -122,7 +122,7 @@ class DeleteShop(webapp2.RequestHandler):
     shop_key = ndb.Key(urlsafe=url_string)
     shop_key.delete()
 
-    self.redirect('/search')
+    self.redirect('/allShops')
 
 
 class AddApparel(webapp2.RequestHandler):
@@ -173,7 +173,7 @@ class AddApparel(webapp2.RequestHandler):
     shop.apparels.append(apparel)
     shop.put()
 
-    self.redirect('/search')
+    self.redirect('/allShops')
 
 
 class ApparelDetails(webapp2.RequestHandler):

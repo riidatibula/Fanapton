@@ -190,6 +190,7 @@ html, body {
 .search_results h3{
 	font-family: 'Taviraj', serif;
 	text-align: center;
+	padding-bottom: 10px;
 }
 
 .navbar-nav li a{
