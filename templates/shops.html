@@ -25,6 +25,18 @@
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
 {% block body %}
+	<div class="search_results">
+		{% if location %}
+			{% if shops %}
+				<h3>Shops found in '{{ location }}'</h3>
+			{% else %}
+				<h3>No shops found in '{{ location }}'</h3>
+			{% endif %}
+		{% else %}
+			<h3>All Shops</h3>
+		{% endif %}
+	</div>
+
 	<div class="row">
 		{% for shop in shops %}
 		   <div class="col-sm-3 col-md-3">

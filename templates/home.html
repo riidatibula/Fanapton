@@ -21,13 +21,13 @@
 				<ul class="nav navbar-nav navbar-right">
 					{% if user %}
 					<li>
-						<a href="#" style="font-family: 'Noto Sans', sans-serif;">
+						<a href="#">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{ user.nickname() }}
 						</a>
 					</li>
 					{% endif %}
 					<li>
-						<a href="{{ url }}" style="font-family: 'Noto Sans', sans-serif;">{{ url_linktext }}</a>
+						<a href="{{ url }}">{{ url_linktext }}</a>
 					</li>
 				</ul>
 			</div>
@@ -59,7 +59,7 @@
 	</div>
 
 	<div align="center" class="shop-now">
-		<a href="/search" class="btn btn-default btn-lg">Shop Now</a>
+		<a href="/allShops" class="btn btn-default btn-lg">Shop Now</a>
 	</div>
 
 	<nav class="navbar navbar-default navbar-fixed-bottom footer">

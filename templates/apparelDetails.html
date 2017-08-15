@@ -39,7 +39,7 @@
 	<div style="text-align: center;">
 		<h2 class="shop"><strong>{{ shop.name.upper() }}</strong></h2>
 	</div>
-
+	
 	<div class="shop_details">
 		<div class="info">
 			<p class="address">
@@ -50,8 +50,8 @@
 		</div>
 		<div class="info"> 
 			<p class="contacts">
-				{% for contact in shop.contacts %}
-					{{ contact }}
+				{% for email in shop.emails %}
+					{{ email }}
 				{% endfor %}
 			</p>
 		</div>

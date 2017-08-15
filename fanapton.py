@@ -41,30 +41,6 @@ class MainPage(webapp2.RequestHandler):
     self.response.write(template.render(context))
 
 
-class Search(webapp2.RequestHandler):
-  def get(self):
-    shops = Shop.query()
-
-    user = users.get_current_user()
-
-    if user:
-      url = users.create_logout_url('/')
-      url_linktext = 'Log out'
-    else:
-      url = users.create_login_url(self.request.uri)
-      url_linktext = 'Log in'
-
-    context = {
-      'user': user,
-      'url': url,
-      'url_linktext': url_linktext,
-      'shops': shops
-    }
-
-    template = JINJA_ENVIRONMENT.get_template('searchAll.html')
-    self.response.write(template.render(context))
-
-
 class AddShop(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
@@ -161,7 +137,7 @@ class AddApparel(webapp2.RequestHandler):
       url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'log in'
+      url_linktext = 'Log in'
 
     context = {
       'user': user,
@@ -218,7 +194,7 @@ class ApparelDetails(webapp2.RequestHandler):
       url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'log in'
+      url_linktext = 'Log in'
 
     context = {
       'user': user,
@@ -242,7 +218,7 @@ class MyCart(webapp2.RequestHandler):
       url_linktext = 'Log out'
     else:
       url = users.create_login_url(self.request.uri)
-      url_linktext = 'log in'
+      url_linktext = 'Log In'
 
     context = {
       'user': user,
@@ -253,11 +229,69 @@ class MyCart(webapp2.RequestHandler):
     template = JINJA_ENVIRONMENT.get_template('myCart.html')
     self.response.write(template.render(context))
 
+class AllShops(webapp2.RequestHandler):
+  def get(self):
+    shops = Shop.query()
 
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'Log out'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'Log in'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+      'shops': shops
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('shops.html')
+    self.response.write(template.render(context))
+
+
+class SearchShop(webapp2.RequestHandler):
+  def post(self):
+    shops = Shop.query()
+    location = self.request.POST.get('location')
+    
+    if location:
+      result = []
+      location = location.upper()
+      for shop in shops:
+        for address in shop.address:
+          if location in address.upper():
+            result.append(shop)
+            break
+      shops = result
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'Log out'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'Log in'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+      'location': location,
+      'shops': shops
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('shops.html')
+    self.response.write(template.render(context))
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
-  ('/search', Search),
+  ('/allShops', AllShops),
+  ('/searchShops', SearchShop),
   ('/addShop', AddShop),
   ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
