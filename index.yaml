@@ -2,7 +2,7 @@ indexes:
 - kind: Apparel
   ancestor: yes
   properties:
-  - name: name
+  - name: parsed_name
     direction: desc
 
 - kind: Cart

@@ -5,6 +5,7 @@ import os
 import webapp2
 import jinja2
 import storage
+import json
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -181,11 +182,7 @@ class ApparelDetails(webapp2.RequestHandler):
     shop_key = ndb.Key(urlsafe=url_safe)
     shop = shop_key.get()
 
-    apparels = Apparel.query()
-
-    for app in apparels:
-      if app.parsed_name == apparel_name:
-        apparel = app
+    apparel = Apparel.query(Apparel.parsed_name == apparel_name).get()
 
     user = users.get_current_user()
 
@@ -208,6 +205,22 @@ class ApparelDetails(webapp2.RequestHandler):
     self.response.write(template.render(context))
 
 
+class DeleteApparel(webapp2.RequestHandler):
+  def post(self, url_safe, apparel_url_safe):
+    shop_key = ndb.Key(urlsafe=url_safe)
+    shop = shop_key.get()
+
+    apparel_key = ndb.Key(urlsafe=apparel_url_safe)
+    apparel = apparel_key.get()
+
+    shop.apparels = [i for i in shop.apparels if i.parsed_name != apparel.parsed_name]
+    shop.put()
+    
+    apparel_key.delete()
+    
+    self.redirect('/allShops')
+
+
 class MyCart(webapp2.RequestHandler):
   def get(self, user_id):
 
@@ -228,6 +241,7 @@ class MyCart(webapp2.RequestHandler):
 
     template = JINJA_ENVIRONMENT.get_template('myCart.html')
     self.response.write(template.render(context))
+
 
 class AllShops(webapp2.RequestHandler):
   def get(self):
@@ -288,14 +302,87 @@ class SearchShop(webapp2.RequestHandler):
     template = JINJA_ENVIRONMENT.get_template('shops.html')
     self.response.write(template.render(context))
 
+
+class GHomeSearch(webapp2.RequestHandler):
+  def post(self, location):
+    shops = Shop.query()
+
+    result = []
+    location = location.upper()
+
+    for shop in shops:
+      for address in shop.address:
+        if location in address.upper():
+          result.append(shop)
+          break
+    shops = result
+
+    self.response.headers['Content-Type'] = 'application/json'
+
+    context={}
+
+    if len(shops) > 0:
+      name = shops[0].name
+      about = shops[0].about
+      overview = shops[0].overview
+      address = shops[0].address[0]
+      emails = shops[0].emails[0]
+
+      context = {
+        'name': name,
+        'about': about,
+        'overview': overview,
+        'address': address,
+        'emails': emails
+      }
+
+    self.response.out.write(json.dumps(context))
+
+  def get(self, location):
+    shops = Shop.query()
+
+    result = []
+    location = location.upper()
+
+    for shop in shops:
+      for address in shop.address:
+        if location in address.upper():
+          result.append(shop)
+          break
+    shops = result
+
+    self.response.headers['Content-Type'] = 'application/json'
+
+    context={}
+
+    if len(shops) > 0:
+      name = shops[0].name
+      about = shops[0].about
+      overview = shops[0].overview
+      address = shops[0].address[0]
+      emails = shops[0].emails[0]
+
+      context = {
+        'name': name,
+        'about': about,
+        'overview': overview,
+        'address': address,
+        'emails': emails
+      }
+
+    self.response.out.write(json.dumps(context))
+
+
 app = webapp2.WSGIApplication([
 	('/', MainPage),
   ('/allShops', AllShops),
   ('/searchShops', SearchShop),
+  ('/gHome/search/(?P<lcocation>[\w\-]+)', GHomeSearch),
   ('/addShop', AddShop),
   ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
   ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel),
   ('/shopDetails/(?P<url_safe>[\w\-]+)/(?P<apparel_name>[\w\-]+)/', ApparelDetails),
+  ('/shopDetails/(?P<url_safe>[\w\-]+)/(?P<apparel_name>[\w\-]+)/deleteApparel/', DeleteApparel),
   ('/myCart/(?P<user_id>\d+)/', MyCart),
 ], debug=True)
