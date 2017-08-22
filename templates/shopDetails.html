@@ -11,7 +11,7 @@
 	{% if user %}
 		{% if user.email() == 'rIIdatibula@gmail.com' %}
 			<form class="navbar-form navbar-left" method="POST" action="/deleteShop/{{ shop.key.urlsafe() }}">
-				<button type="submit" class="btn btn-default">Remove</button>
+				<button type="submit" class="btn btn-default">Remove Shop</button>
 			</form>
 		{% endif %}
 	{% endif %}
