@@ -118,6 +118,31 @@ class ShopDetails(webapp2.RequestHandler):
     self.handle_requests(url_string)
 
 
+class Products(webapp2.RequestHandler):
+  def get(self, url_string):
+    shop_key = ndb.Key(urlsafe=url_string)
+    shop = shop_key.get()
+
+    user = users.get_current_user()
+
+    if user:
+      url = users.create_logout_url('/')
+      url_linktext = 'Log out'
+    else:
+      url = users.create_login_url(self.request.uri)
+      url_linktext = 'Log in'
+
+    context = {
+      'user': user,
+      'url': url,
+      'url_linktext': url_linktext,
+      'shop': shop
+    }
+
+    template = JINJA_ENVIRONMENT.get_template('products.html')
+    self.response.write(template.render(context))
+
+
 class DeleteShop(webapp2.RequestHandler):
   def post(self, url_string):
     shop_key = ndb.Key(urlsafe=url_string)
@@ -379,7 +404,8 @@ app = webapp2.WSGIApplication([
   ('/searchShops', SearchShop),
   ('/gHome/search/(?P<lcocation>[\w\-]+)', GHomeSearch),
   ('/addShop', AddShop),
-  ('/shopDetails/(?P<url_string>[\w\-]+)', ShopDetails),
+  ('/shopDetails/(?P<url_string>[\w\-]+)/', ShopDetails),
+  ('/shopDetails/(?P<url_string>[\w\-]+)/products/', Products),
   ('/deleteShop/(?P<url_string>[\w\-]+)', DeleteShop),
   ('/addApparel/(?P<url_string>[\w\-]+)', AddApparel),
   ('/shopDetails/(?P<url_safe>[\w\-]+)/(?P<apparel_name>[\w\-]+)/', ApparelDetails),

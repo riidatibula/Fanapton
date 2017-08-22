@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-top">
 		<div class="container">
 			<div class="navbar-header nav_image">
 				<a class="navbar-brand" href="/">
@@ -49,7 +49,10 @@
 		</div>
 	</nav>
 
-	<div class="container" style="padding-top: 80px; padding-bottom: 70px;">
+	{% block cover %}
+	{% endblock %}
+
+	<div class="container" style="padding-top: 30px; padding-bottom: 70px;">
 	{% block body %}
 	{% endblock %}
 	</div>

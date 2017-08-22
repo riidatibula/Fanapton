@@ -85,6 +85,7 @@ html, body {
 
 .navbar{
 	border-radius: 0;
+	margin-bottom: 0px;
 }
 
 .navbar-brand{
@@ -118,9 +119,8 @@ html, body {
 }
 
 .shop_details p{
-	font-size: 0.8em;
+	font-size: 1em;
 	font-family: 'Open Sans', sans-serif;
-	font-weight: bold;
 	margin-bottom: 30px;
 }
 
@@ -132,9 +132,14 @@ html, body {
 	padding-right: 5px;
 }
 
+.shop_details .address{
+	font-weight: bold;
+}
+
 .shop_details .contacts{
 	border-left: thin solid black;
 	padding-left: 5px;
+	font-weight: bold;
 }
 
 .apparel_img{
@@ -196,3 +201,40 @@ html, body {
 .navbar-nav li a{
 	font-family: 'Noto Sans', sans-serif;
 }
+
+/*------------Shop Details--------------*/
+
+.cover-photo img{
+	min-width: 1024px;
+	max-height: auto;
+	width:100%;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.profile-image img{
+	width: 200px;
+	height: 200px;
+	position: relative;
+	top: -170px;
+}
+
+.first-cover-nav{
+	top: -50px;
+	background: rgba(0,0,0,0.5);
+	border-style: none;
+}
+
+.first-cover-nav ul{
+	margin-left: 215px;
+	color: white;
+}
+
+.second-cover-nav{
+	top: -50px;
+	background: rgba(192,192,192,1);
+	border-style: none;
+}
+
+/*------------End----------------------
