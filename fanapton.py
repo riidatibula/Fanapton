@@ -73,10 +73,15 @@ class AddShop(webapp2.RequestHandler):
     cover_image = self.request.POST.get('cover_image')
     profile_image = self.request.POST.get('profile_image')
 
-    address_list = [address]
-    email_list = [email]
-    website_list = [website]
-    award_list = [award]
+    address_list = address.split('|')
+    email_list = email.split('|')
+    website_list = website.split('|')
+
+    if award: 
+      award_list = award.split('|')
+    else:
+      award_list = None
+
     cover_image_url = storage.upload_file(cover_image)
     profile_image_url = storage.upload_file(profile_image)
 
@@ -182,9 +187,9 @@ class AddApparel(webapp2.RequestHandler):
     name = self.request.POST.get('name')
     price = int(self.request.POST.get('price'))
     image = self.request.POST.get('image')
+    tags = self.request.POST.get('tags')
     desc = self.request.POST.get('desc')
     image_url = storage.upload_file(image)
-    tags = []
 
     data = name.split(" ")
 
@@ -193,7 +198,9 @@ class AddApparel(webapp2.RequestHandler):
     elif len(data) == 1:
       parsed_name = data[0]
 
-    apparel = Apparel(name=name, parsed_name=parsed_name, image=image_url, price=price, description=desc)
+    tags_list = tags.split(',')
+
+    apparel = Apparel(name=name, parsed_name=parsed_name, image=image_url, tags=tags_list,  price=price, description=desc)
     apparel.put()
 
     shop.apparels.append(apparel)
@@ -339,6 +346,10 @@ class GoogleSearchConsole2(webapp2.RequestHandler):
     template = JINJA_ENVIRONMENT.get_template('google66a09b8269578bf4.html')
     self.response.write(template.render())
 
+class Sitemap(webapp2.RequestHandler):
+  def get(self):
+    template = JINJA_ENVIRONMENT.get_template('sitemap.xml')
+    self.response.write(template.render())
 
 class GHomeSearch(webapp2.RequestHandler):
   def post(self, location):
@@ -414,6 +425,7 @@ app = webapp2.WSGIApplication([
 	('/', MainPage),
   ('/google7f04c06b777bcd27.html', GoogleSearchConsole),
   ('/google66a09b8269578bf4.html', GoogleSearchConsole2),
+  ('/sitemap.xml', Sitemap),
   ('/allShops', AllShops),
   ('/searchShops', SearchShop),
   ('/gHome/search/(?P<lcocation>[\w\-]+)', GHomeSearch),

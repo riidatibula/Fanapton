@@ -129,16 +129,10 @@ html, body {
 }
 
 .shop_details .address{
-	padding-right: 5px;
-}
-
-.shop_details .address{
 	font-weight: bold;
 }
 
 .shop_details .contacts{
-	border-left: thin solid black;
-	padding-left: 5px;
 	font-weight: bold;
 }
 

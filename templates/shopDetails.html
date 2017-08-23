@@ -66,21 +66,12 @@
 
 {% block body %}
 	
-	<div class="col-lg-8 col-lg-offset-2">
-		<div class="shop_details">
-			<div class="info">
-				<p class="address">
-					{% for address in shop.address %}
-						{{ address }}
-					{% endfor %}
-				</p>
-			</div>
-			<div class="info"> 
-				<p class="contacts">
-					{% for email in shop.emails %}
-						{{ email }}
-					{% endfor %}
-				</p>
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-2">
+			<div class="address">
+				{% for address in shop.address %}
+					<p>{{ address }}</p>
+				{% endfor %}
 			</div>
 			<div>
 				<p>{{ shop.about }}</p>
@@ -88,13 +79,23 @@
 			<div>
 				<p>{{ shop.overview }}</p>
 			</div>
-			{% if shop.websites %}
-			<div>
-				{% for website in shop.websites %}
-					<p><i>{{ website }}</i></p>
+		</div>
+		<div class="col-lg-4">
+			<div class="contacts"> 
+				{% for email in shop.emails %}
+					<p>{{ email }}</p>
 				{% endfor %}
 			</div>
-			{% endif %}
+			<div class="website">
+				{% for website in shop.websites %}
+					<p><a href="{{ website }}">{{ website }}</a></p>
+				{% endfor %}
+			</div>
+			<div class="awards">
+				{% for award in shop.awards %}
+					<p>{{ award }}</p>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 
