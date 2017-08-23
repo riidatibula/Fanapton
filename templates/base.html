@@ -14,13 +14,14 @@
 	<link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Taviraj" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
 </head>
 
 <body>
 	<nav class="navbar navbar-inverse navbar-top">
 		<div class="container">
 			<div class="navbar-header nav_image">
-				<a class="navbar-brand" href="/">
+				<a class="navbar-brand" href="/allShops">
 				<img alt="Brand" src="https://storage.googleapis.com/fanapton.appspot.com/fanapton_brand.png"></a>
 			</div>
 			<div class="collapse navbar-collapse">
@@ -34,7 +35,11 @@
 				
 				<ul class="nav navbar-nav navbar-right">
 					{% block nav %}{% endblock %}
+					
 					{% if user %}
+					<li>
+						<a href="/myCart/{{ user.user_id() }}/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;My Cart</a>
+					</li>
 					<li>
 						<a href="#">
 							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{ user.nickname() }}

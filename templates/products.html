@@ -17,22 +17,6 @@
 	{% endif %}
 {% endblock %}
 
-{% block nav %}
-	{% if user %}
-		{% if user.email() == 'rIIdatibula@gmail.com' %}
-			<li>
-				<a href="/addApparel/{{ shop.key.urlsafe() }}">Add Apparel</a>
-			</li>
-			<li>
-				<a href="#">Edit Shop</a>
-			</li>
-		{% endif %}
-		<li>
-			<a href="/myCart/{{ user.user_id() }}/"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;My Cart</a>
-		</li>
-	{% endif %}
-{% endblock %}
-
 {% block url %}{{ url }}{% endblock %}
 
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
@@ -77,8 +61,8 @@
 			{% for apparel in shop.apparels %}
 				<div class="col-sm-4 col-md-4 apparel">
 			    	<div class="thumbnail">
-				      <a href="/shopDetails/{{ shop.key.urlsafe() }}/{{ apparel.parsed_name }}/">
-				      <img src="{{ apparel.image }}" alt="apparel_img" class="apparel_img"></a>
+				      <!-- <a href="/shopDetails/{{ shop.key.urlsafe() }}/{{ apparel.parsed_name }}/"> -->
+				      <img src="{{ apparel.image }}" alt="apparel_img" class="apparel_img"><!-- </a> -->
 				      <div class="caption">
 				      	<h3>{{ apparel.name.upper() }}</h3>
 				      	<p>{{ apparel.description }}</p>
