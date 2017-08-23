@@ -328,6 +328,18 @@ class SearchShop(webapp2.RequestHandler):
     self.response.write(template.render(context))
 
 
+class GoogleSearchConsole(webapp2.RequestHandler):
+  def get(self):
+    template = JINJA_ENVIRONMENT.get_template('google7f04c06b777bcd27.html')
+    self.response.write(template.render())
+
+
+class GoogleSearchConsole2(webapp2.RequestHandler):
+  def get(self):
+    template = JINJA_ENVIRONMENT.get_template('google66a09b8269578bf4.html')
+    self.response.write(template.render())
+
+
 class GHomeSearch(webapp2.RequestHandler):
   def post(self, location):
     shops = Shop.query()
@@ -400,6 +412,8 @@ class GHomeSearch(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
+  ('/google7f04c06b777bcd27.html', GoogleSearchConsole),
+  ('/google66a09b8269578bf4.html', GoogleSearchConsole2),
   ('/allShops', AllShops),
   ('/searchShops', SearchShop),
   ('/gHome/search/(?P<lcocation>[\w\-]+)', GHomeSearch),
