@@ -31,11 +31,40 @@
 
 {% block url_linktext %}{{ url_linktext }}{% endblock %}
 
-{% block body %}
-	
-	<div style="text-align: center;">
-		<h2 class="shop"><strong>{{ shop.name.upper() }}</strong></h2>
+{% block cover %}
+	<div class="cover-photo">
+		<img src="{{ shop.cover_image }}">
 	</div>
+
+	<nav class="navbar navbar-default first-cover-nav">
+		<div class="container">
+			<ul class="nav navbar-nav navbar-left">
+				<li>
+					<a href="#" style="color: white;">{{ shop.name.upper() }}</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<nav class="navbar navbar-default second-cover-nav">
+		<div class="container">
+			<div class="navbar-header profile-image">
+				<a class="navbar-brand" href="#">
+				<img alt="Brand" src="{{ shop.profile_image }}"></a>
+			</div>
+			<ul class="nav navbar-nav navbar-left">
+				<li>
+					<a href="/shopDetails/{{ shop.key.urlsafe() }}/" class="link" style="color:white">About</a>
+				</li>
+				<li>
+					<a href="/shopDetails/{{ shop.key.urlsafe() }}/products/">Products</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+{% endblock %}
+
+{% block body %}
 
 	<div class="col-md-8 col-md-offset-2">
 		<div class="col-sm-4 col-md-4 col-md-offset-4 apparel apparel_details">
