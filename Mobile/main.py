@@ -104,7 +104,7 @@ class jsonReturn(webapp2.RequestHandler):
 		reply = {
 		  'tags': ['jacket', 'hoodie', 'black'],
 		  'payload': 'some var',
-		} 
+		
 		self.response.out.write(json.dumps(reply))
 
 app = webapp2.WSGIApplication([

@@ -8,7 +8,7 @@ from google.cloud import vision
 vision_client = vision.Client()
 
 # The name of the image file to annotate
-file_name = "Resources/jacket2.jpg"
+file_name = "Resources/Fire Black T-Shirt Women PHP499.jpg"
 
 # Loads the image into memory
 with io.open(file_name, 'rb') as image_file:

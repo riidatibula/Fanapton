@@ -6,7 +6,7 @@ import webapp2
 import jinja2
 import storage
 import json
-import request
+import vision
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -19,7 +19,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
   loader=jinja2.FileSystemLoader('templates'),
   extensions=['jinja2.ext.autoescape'],
   autoescape=True)
-
 
 class MainPage(webapp2.RequestHandler):
   def get(self):
@@ -191,6 +190,7 @@ class AddApparel(webapp2.RequestHandler):
     tags = self.request.POST.get('tags')
     desc = self.request.POST.get('desc')
     image_url = storage.upload_file(image)
+    vision.run(image)
 
     data = name.split(" ")
 
