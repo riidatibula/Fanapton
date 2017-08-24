@@ -6,7 +6,6 @@ import webapp2
 import jinja2
 import storage
 import json
-import vision
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -190,7 +189,6 @@ class AddApparel(webapp2.RequestHandler):
     tags = self.request.POST.get('tags')
     desc = self.request.POST.get('desc')
     image_url = storage.upload_file(image)
-    vision.run(image)
 
     data = name.split(" ")
 
@@ -340,7 +338,6 @@ class GoogleSearchConsole(webapp2.RequestHandler):
   def get(self):
     template = JINJA_ENVIRONMENT.get_template('google7f04c06b777bcd27.html')
     self.response.write(template.render())
-
 
 class GoogleSearchConsole2(webapp2.RequestHandler):
   def get(self):
