@@ -80,7 +80,7 @@ class AddShop(webapp2.RequestHandler):
     if award: 
       award_list = award.split('|')
     else:
-      award_list = None
+      award_list = []
 
     cover_image_url = storage.upload_file(cover_image)
     profile_image_url = storage.upload_file(profile_image)
