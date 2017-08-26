@@ -214,6 +214,7 @@ class ApparelDetails(webapp2.RequestHandler):
     shop = shop_key.get()
 
     apparel = Apparel.query(Apparel.parsed_name == apparel_name).get()
+    tags = ",".join(apparel.tags)
 
     user = users.get_current_user()
 
@@ -229,7 +230,8 @@ class ApparelDetails(webapp2.RequestHandler):
       'url': url,
       'url_linktext': url_linktext,
       'shop': shop,
-      'apparel': apparel
+      'apparel': apparel,
+      'tags': tags
     }
 
     template = JINJA_ENVIRONMENT.get_template('apparelDetails.html')
